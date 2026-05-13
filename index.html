@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>カフェナビ｜作業・勉強に集中できるカフェ検索</title>
+  <style>
+    :root {
+      --bg: #fffaf3;
+      --surface: #ffffff;
+      --surface-soft: #fff3e3;
+      --main: #8b5e3c;
+      --main-dark: #4b2e1f;
+      --accent: #2f8f83;
+      --accent-soft: #e2f4ef;
+      --text: #2a211d;
+      --muted: #74675f;
+      --line: #ead8c4;
+      --shadow: 0 18px 45px rgba(75, 46, 31, 0.14);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans JP", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page {
+      overflow: hidden;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 250, 243, 0.86);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(234, 216, 196, 0.65);
+    }
+
+    .nav {
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--main-dark);
+      font-size: 22px;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #8b5e3c, #2f8f83);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(75, 46, 31, 0.24);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .nav-links a:hover {
+      color: var(--main-dark);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 0;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--main-dark);
+      color: #fff;
+      box-shadow: 0 12px 25px rgba(75, 46, 31, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 34px rgba(75, 46, 31, 0.27);
+    }
+
+    .btn-secondary {
+      background: #fff;
+      color: var(--main-dark);
+      border: 1px solid var(--line);
+    }
+
+    .hero {
+      position: relative;
+      padding: 78px 0 70px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(8px);
+      opacity: 0.65;
+      z-index: -1;
+    }
+
+    .hero::before {
+      width: 360px;
+      height: 360px;
+      background: #f7dfbd;
+      top: 30px;
+      right: -100px;
+    }
+
+    .hero::after {
+      width: 260px;
+      height: 260px;
+      background: #cbe9e2;
+      left: -100px;
+      bottom: 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--accent-soft);
+      color: #1f6f66;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 68px);
+      line-height: 1.12;
+      letter-spacing: -0.055em;
+      color: var(--main-dark);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+    }
+
+    .hero-copy {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 30px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .trust-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.58);
+      border-radius: 999px;
+    }
+
+    .search-card {
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(234, 216, 196, 0.95);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      position: relative;
+    }
+
+    .search-card::before {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      border-radius: 34px;
+      border: 1px solid rgba(139, 94, 60, 0.08);
+      z-index: -1;
+    }
+
+    .mock-map {
+      height: 210px;
+      border-radius: 24px;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.45) 1px, transparent 1px),
+        linear-gradient(135deg, #f4dfc7, #d8efe9);
+      background-size: 42px 42px, 42px 42px, 100% 100%;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .pin {
+      position: absolute;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50% 50% 50% 6px;
+      transform: rotate(-45deg);
+      background: var(--main-dark);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(75, 46, 31, 0.24);
+    }
+
+    .pin span {
+      transform: rotate(45deg);
+      font-size: 15px;
+    }
+
+    .pin.one { top: 42px; left: 72px; }
+    .pin.two { top: 98px; right: 84px; background: var(--accent); }
+    .pin.three { bottom: 40px; left: 220px; background: #c77838; }
+
+    .search-panel {
+      display: grid;
+      gap: 12px;
+    }
+
+    .search-input {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px;
+      background: var(--surface-soft);
+      border-radius: 16px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .filter-chip {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      color: var(--main-dark);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    section {
+      padding: 74px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 38px;
+    }
+
+    .section-label {
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      line-height: 1.2;
+      color: var(--main-dark);
+      letter-spacing: -0.04em;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 26px;
+      box-shadow: 0 14px 34px rgba(75, 46, 31, 0.08);
+    }
+
+    .icon {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: var(--surface-soft);
+      font-size: 26px;
+      margin-bottom: 18px;
+    }
+
+    .feature-card h3 {
+      color: var(--main-dark);
+      font-size: 20px;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .steps {
+      background: var(--main-dark);
+      color: #fff;
+      border-radius: 36px;
+      padding: 44px;
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 34px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .steps h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.2;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    .steps p {
+      color: rgba(255,255,255,0.72);
+    }
+
+    .step-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 14px;
+      align-items: start;
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .step-num {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #fff;
+      color: var(--main-dark);
+      font-weight: 900;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+
+    .step p {
+      font-size: 14px;
+    }
+
+    .persona-wrap {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .persona-card,
+    .voice-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      box-shadow: 0 14px 34px rgba(75, 46, 31, 0.08);
+    }
+
+    .avatar {
+      width: 86px;
+      height: 86px;
+      border-radius: 28px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #f3c99a, #98d9ce);
+      font-size: 42px;
+      margin-bottom: 18px;
+    }
+
+    .persona-card h3 {
+      color: var(--main-dark);
+      font-size: 26px;
+      margin-bottom: 8px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0 22px;
+    }
+
+    .meta span {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #1f6f66;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .persona-card p,
+    .voice-card p {
+      color: var(--muted);
+    }
+
+    .quote-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .quote {
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--surface-soft);
+      color: var(--main-dark);
+      font-weight: 800;
+    }
+
+    .cafe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .cafe-card {
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 14px 34px rgba(75, 46, 31, 0.08);
+    }
+
+    .cafe-photo {
+      height: 150px;
+      background: linear-gradient(135deg, #d7b48c, #7dbdb3);
+      position: relative;
+    }
+
+    .cafe-photo::after {
+      content: "☕";
+      position: absolute;
+      right: 20px;
+      bottom: 12px;
+      font-size: 46px;
+    }
+
+    .cafe-body {
+      padding: 20px;
+    }
+
+    .cafe-body h3 {
+      color: var(--main-dark);
+      margin-bottom: 6px;
+    }
+
+    .rating {
+      color: #c77838;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tags span {
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: #f8efe4;
+      color: var(--main-dark);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .cta {
+      text-align: center;
+      padding: 70px 28px;
+      border-radius: 36px;
+      background: linear-gradient(135deg, #8b5e3c, #2f8f83);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      max-width: 660px;
+      margin: 0 auto 26px;
+      color: rgba(255,255,255,0.82);
+    }
+
+    .cta .btn {
+      background: #fff;
+      color: var(--main-dark);
+    }
+
+    footer {
+      padding: 34px 0 46px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero-grid,
+      .steps,
+      .persona-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid,
+      .cafe-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+
+      .feature-grid,
+      .cafe-grid,
+      .filters {
+        grid-template-columns: 1fr;
+      }
+
+      .steps,
+      .persona-card,
+      .voice-card {
+        padding: 24px;
+        border-radius: 26px;
+      }
+
+      .nav .btn {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="container nav">
+        <a class="logo" href="#">
+          <span class="logo-mark">☕</span>
+          カフェナビ
+        </a>
+        <nav class="nav-links" aria-label="メインナビゲーション">
+          <a href="#features">特徴</a>
+          <a href="#how">使い方</a>
+          <a href="#persona">ターゲット</a>
+          <a href="#cafes">おすすめ</a>
+        </nav>
+        <a class="btn btn-primary" href="#search">カフェを探す</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="search">
+        <div class="container hero-grid">
+          <div>
+            <div class="eyebrow">勉強・作業向けカフェ検索サービス</div>
+            <h1>集中できるカフェを、<span>条件検索</span>ですぐ見つけよう。</h1>
+            <p class="hero-copy">
+              カフェナビは、Wi‑Fi・電源・静かさ・席の広さ・長時間利用など、作業環境に特化してカフェを探せるWebサービスです。
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#cafes">近くのカフェを探す</a>
+              <a class="btn btn-secondary" href="#features">できることを見る</a>
+            </div>
+            <div class="trust-row">
+              <span>✓ Wi‑Fi情報</span>
+              <span>✓ 電源席</span>
+              <span>✓ 静かな空間</span>
+              <span>✓ 口コミ・レビュー</span>
+            </div>
+          </div>
+
+          <div class="search-card" aria-label="検索画面イメージ">
+            <div class="mock-map">
+              <div class="pin one"><span>1</span></div>
+              <div class="pin two"><span>2</span></div>
+              <div class="pin three"><span>3</span></div>
+            </div>
+            <div class="search-panel">
+              <div class="search-input">🔍 作業できるカフェを検索</div>
+              <div class="filters">
+                <div class="filter-chip">📶 Wi‑Fiあり</div>
+                <div class="filter-chip">🔌 電源席あり</div>
+                <div class="filter-chip">🤫 静か</div>
+                <div class="filter-chip">⏳ 長時間OK</div>
+              </div>
+              <a class="btn btn-primary" href="#cafes">この条件で探す</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-label">FEATURES</div>
+            <h2>普通のカフェ検索では分からない「作業しやすさ」を見える化</h2>
+            <p>GoogleマップやSNSでは探しにくい作業環境の情報を、分かりやすくまとめて確認できます。</p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <div class="icon">🔍</div>
+              <h3>条件で絞り込み</h3>
+              <p>Wi‑Fi、電源、静かさ、席の広さ、長時間利用可など、目的に合った条件で検索できます。</p>
+            </article>
+            <article class="feature-card">
+              <div class="icon">🗺️</div>
+              <h3>地図から探せる</h3>
+              <p>現在地や大学・駅周辺から、移動しやすい作業向けカフェをすぐに見つけられます。</p>
+            </article>
+            <article class="feature-card">
+              <div class="icon">⭐</div>
+              <h3>レビューで判断</h3>
+              <p>実際に作業したユーザーの口コミや評価を見て、行く前に雰囲気を確認できます。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="how">
+        <div class="container">
+          <div class="steps">
+            <div>
+              <div class="section-label">HOW TO USE</div>
+              <h2>カフェ探しを、迷わず3ステップで。</h2>
+              <p>授業の空き時間、レポート作成、外出先のPC作業など、必要なタイミングですぐ使える導線にしています。</p>
+            </div>
+            <div class="step-list">
+              <div class="step">
+                <div class="step-num">1</div>
+                <div>
+                  <h3>場所を入力</h3>
+                  <p>現在地・駅名・大学名などから検索します。</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">2</div>
+                <div>
+                  <h3>条件を選ぶ</h3>
+                  <p>Wi‑Fi、電源、静かさ、長時間利用などを指定します。</p>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">3</div>
+                <div>
+                  <h3>詳細を見て保存</h3>
+                  <p>設備・写真・口コミを確認し、お気に入り登録できます。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="persona">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-label">TARGET USER</div>
+            <h2>メインターゲットは、勉強場所を探す大学生</h2>
+            <p>課題やレポート、就活準備などで「集中できる場所」を探す学生に向けた設計です。</p>
+          </div>
+          <div class="persona-wrap">
+            <article class="persona-card">
+              <div class="avatar">🎓</div>
+              <h3>鈴木 健太 / 21歳</h3>
+              <p>東京都台東区在住の大学生。iPhoneとノートPCを使い、授業の空き時間や放課後にカフェで課題を進めたい。</p>
+              <div class="meta">
+                <span>大学生</span>
+                <span>週2〜3回利用想定</span>
+                <span>SNSで情報収集</span>
+                <span>コスパ重視</span>
+              </div>
+              <p>「作業や勉強に適したカフェを探すのに時間がかかる」「実際に行くまで作業しやすいか分からない」という課題を持っています。</p>
+            </article>
+            <article class="voice-card">
+              <div class="section-label">USER VOICE</div>
+              <div class="quote-list">
+                <div class="quote">「Wi‑Fiと電源があるカフェって意外と見つからない。」</div>
+                <div class="quote">「Googleマップを見ても、作業できるか分かりにくい。」</div>
+                <div class="quote">「静かで長時間いられるカフェをすぐ見つけたい。」</div>
+                <div class="quote">「行ってみたら混んでて作業できないのが一番困る。」</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="cafes">
+        <div class="container">
+          <div class="section-head">
+            <div class="section-label">CAFE LIST</div>
+            <h2>作業向けカフェの表示例</h2>
+            <p>実装時は、検索条件・地図・レビュー・お気に入り機能と連携して表示できます。</p>
+          </div>
+          <div class="cafe-grid">
+            <article class="cafe-card">
+              <div class="cafe-photo"></div>
+              <div class="cafe-body">
+                <h3>Study Cafe Ueno</h3>
+                <div class="rating">★★★★★ 4.8</div>
+                <div class="tags">
+                  <span>Wi‑Fi</span><span>電源</span><span>静か</span><span>駅近</span>
+                </div>
+              </div>
+            </article>
+            <article class="cafe-card">
+              <div class="cafe-photo"></div>
+              <div class="cafe-body">
+                <h3>Nomad Coffee Lab</h3>
+                <div class="rating">★★★★☆ 4.5</div>
+                <div class="tags">
+                  <span>長時間OK</span><span>広い席</span><span>レビュー多</span>
+                </div>
+              </div>
+            </article>
+            <article class="cafe-card">
+              <div class="cafe-photo"></div>
+              <div class="cafe-body">
+                <h3>Quiet Beans</h3>
+                <div class="rating">★★★★☆ 4.4</div>
+                <div class="tags">
+                  <span>静か</span><span>PC作業</span><span>お気に入り</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="cta">
+            <h2>今日の作業場所を、もう迷わない。</h2>
+            <p>勉強・レポート・PC作業に合うカフェを、設備情報と口コミから効率よく探しましょう。</p>
+            <a class="btn" href="#search">カフェを検索する</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div>© 2026 カフェナビ</div>
+        <div>作業・勉強向けカフェ検索サービス</div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
