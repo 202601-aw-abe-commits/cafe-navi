@@ -4,13 +4,20 @@
 This file is the single source of truth for contributors and Codex agents.
 
 Before editing any file, always do this in order:
-1. Open `AGENTS.md` and review constraints/checklist.
-2. Identify target files from the structure section below.
-3. Make minimal scoped edits.
-4. Run manual verification steps listed in this file.
-5. Update this file if any permanent rule or important decision changed.
+1. Open `AGENTS.md` first.
+2. Use the "Current Features Snapshot" and "Edit Scope Quick Map" in this file to decide target files.
+3. Open only the minimum required files for the requested change.
+4. Make minimal scoped edits.
+5. Run manual verification steps listed in this file.
+6. Update this file if any permanent rule or important decision changed.
 
 If a request conflicts with this guide, follow the user request and then update this guide to reflect the new rule.
+
+## Mandatory Agent Rule
+- Codex must always read `AGENTS.md` first before any implementation work.
+- Codex should not scan the full repository by default.
+- Codex should use `AGENTS.md` as the routing table to identify exactly which files to open.
+- Only if information is missing/ambiguous in `AGENTS.md`, open additional files.
 
 ## Important Project Memo
 - App type: static frontend only (no backend, no build pipeline).
@@ -20,20 +27,45 @@ If a request conflicts with this guide, follow the user request and then update 
 - Separation rule: no custom `<style>` or inline custom `<script>` in `index.html`.
 - Image policy: apply mosaic (blur/pixelation) to photos/images that should not be shown clearly.
 
-## Project Structure & Module Organization
-This repository is a static web app for the Cafe Navi landing page.
+## Current Features Snapshot
+- Top navigation includes: `検索`, `お気に入り`, `カフェナビについて`, `お問い合わせ`, `ログアウト`.
+- Brand title `カフェナビ` uses per-character wave animation.
+- Search area has input + `現在地から探す` button (Enter key in input triggers the same button click).
+- Cafe result list currently contains 11 cards for testing.
+- Pagination is enabled when visible results are over 10 (10 per page).
+- Favorite toggle:
+  - Clicking heart toggles favorite visual state (pink, `♥`).
+  - `お気に入り` tab filters and shows only favorite cards.
+- Left filter panel is sticky on desktop while scrolling.
+- Clicking a card opens detail page for that cafe.
+- Detail page shows cafe info + Leaflet/OpenStreetMap map marker.
 
-- `index.html`: Page structure and external asset links.
-- `css/style.css`: All custom styles, responsive rules, and Leaflet popup styling.
-- `js/main.js`: Frontend behavior, including Leaflet map initialization and marker rendering.
+## Project Structure & Module Organization
+- `index.html`: Main list page markup (top nav, filters, cards, pagination container).
+- `cafe-detail.html`: Cafe detail page markup.
+- `about.html`: "About Cafe Navi" page markup.
+- `contact.html`: Contact form page markup.
+- `css/style.css`: Main list page styles and interactions/animations.
+- `css/cafe-detail.css`: Detail page styles.
+- `css/about.css`: About page styles (cards, badges, section layouts).
+- `css/contact.css`: Contact page styles (form and layout).
+- `js/main.js`: Main list page behavior (favorites, pagination, tab switching, card navigation).
+- `js/cafe-detail.js`: Detail page behavior (query-id based render, map render).
 - `ai-input-proposal-research-persona.md`: Product/context notes (non-runtime document).
 
 Keep concerns separated: HTML for markup only, CSS for presentation, JS for behavior.
 
 ## Edit Scope Quick Map
 - Layout/content changes: `index.html`
-- Visual/theme/responsive changes: `css/style.css`
-- Map/interaction/data logic: `js/main.js`
+- Detail page layout/content: `cafe-detail.html`
+- About page layout/content: `about.html`
+- Contact page layout/content: `contact.html`
+- Visual/theme/responsive changes (main page): `css/style.css`
+- Visual/theme/responsive changes (detail page): `css/cafe-detail.css`
+- Visual/theme/responsive changes (about page): `css/about.css`
+- Visual/theme/responsive changes (contact page): `css/contact.css`
+- Main page interaction/data logic: `js/main.js`
+- Detail page interaction/map/data logic: `js/cafe-detail.js`
 - Product notes and planning context: `ai-input-proposal-research-persona.md`
 
 ## Build, Test, and Development Commands
@@ -57,12 +89,28 @@ If Python is unavailable, any static server is acceptable.
 Automated tests are not configured yet. Perform manual checks for every change:
 
 - Verify layout at desktop and mobile widths.
-- Confirm Leaflet map loads, centers near Ueno, and shows 3 markers.
-- Click each marker and confirm popup content (name, rating, features).
+- Confirm main page card count text matches the actually visible dataset count.
+- When results exceed 10, confirm pagination appears and page transitions work.
+- Toggle heart on several cards and confirm pink state changes correctly.
+- Click `お気に入り` and confirm only favorited cards are shown.
+- Click `検索` and confirm all cards are shown again.
+- Press Enter in search input and confirm it triggers `現在地から探す` click behavior.
+- Confirm filter card stays visible while scrolling on desktop.
+- Click a card and confirm navigation to `cafe-detail.html?id=...`.
+- On detail page, confirm Leaflet map loads and marker/popup matches selected cafe.
 - Check browser console for errors.
-- Confirm file links resolve: `css/style.css`, Leaflet CDN, `js/main.js`.
+- Confirm file links resolve:
+  - `css/style.css`
+  - `css/cafe-detail.css`
+  - `js/main.js`
+  - `js/cafe-detail.js`
+  - Leaflet CDN files on detail page
 
 When adding tests later, place them under a top-level `tests/` directory.
+
+## Data Maintenance Notes
+- Main card content in `index.html` and detail data in `js/cafe-detail.js` are currently maintained separately.
+- If card titles/metadata are changed in `index.html`, update corresponding entries in `js/cafe-detail.js` to keep detail page consistent.
 
 ## Commit & Pull Request Guidelines
 Git history is currently minimal (`Initial commit: cafe-navi`). Follow a simple, consistent style:

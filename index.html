@@ -16,16 +16,23 @@
         <a href="#" class="brand" aria-label="カフェナビ">
           <span class="brand-mark">☕</span>
           <span class="brand-copy">
-            <strong>カフェナビ</strong>
+            <strong class="brand-wave" aria-label="カフェナビ">
+              <span aria-hidden="true">カ</span>
+              <span aria-hidden="true">フ</span>
+              <span aria-hidden="true">ェ</span>
+              <span aria-hidden="true">ナ</span>
+              <span aria-hidden="true">ビ</span>
+            </strong>
             <small>学生のための作業カフェ検索</small>
           </span>
         </a>
 
         <nav class="topnav" aria-label="メインメニュー">
-          <a href="#">トップ</a>
-          <a href="#">検索</a>
-          <a href="#" class="is-active">お気に入り</a>
-          <a href="#">お問い合わせ</a>
+          <a href="#" class="is-active" data-view="all">検索</a>
+          <a href="#" data-view="favorites">お気に入り</a>
+          <a href="about.html">カフェナビについて</a>
+          <a href="contact.html">お問い合わせ</a>
+          <a href="#">ログアウト</a>
         </nav>
       </div>
     </header>
@@ -64,10 +71,10 @@
         </aside>
 
         <section class="results" aria-label="検索結果">
-          <p class="result-count"><strong>8</strong> 件のカフェが見つかりました</p>
+          <p class="result-count"><strong>2</strong> 件のカフェが見つかりました</p>
 
           <div class="cards-grid">
-            <article class="cafe-card">
+            <article class="cafe-card" data-cafe-id="cafe-1">
               <div class="thumb thumb-a">
                 <button class="heart" aria-label="お気に入りに追加">♡</button>
                 <span class="score">作業スコア 85</span>
@@ -91,7 +98,7 @@
               </div>
             </article>
 
-            <article class="cafe-card">
+            <article class="cafe-card" data-cafe-id="cafe-2">
               <div class="thumb thumb-b">
                 <button class="heart" aria-label="お気に入りに追加">♡</button>
                 <span class="score">作業スコア 92</span>
@@ -115,10 +122,223 @@
                 </div>
               </div>
             </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-3">
+              <div class="thumb thumb-a">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 88</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>カフェ・ルミエール池袋</h3>
+                  <span class="rating">★ 4.3 (198)</span>
+                </div>
+                <p class="meta">池袋 ・ 0.9km</p>
+                <p class="desc">席間が広く、コンセント席も多め。集中して作業しやすいカフェです。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>電源</span>
+                  <span>長時間OK</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥¥</span>
+                  <span>9:00 - 22:00</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-4">
+              <div class="thumb thumb-b">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 81</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>コーヒースタンド神保町</h3>
+                  <span class="rating">★ 4.2 (143)</span>
+                </div>
+                <p class="meta">神保町 ・ 1.1km</p>
+                <p class="desc">静かなBGMと落ち着いた空間で、読書やレポート作成にも向いています。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>静か</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥¥</span>
+                  <span>8:30 - 21:00</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-5">
+              <div class="thumb thumb-a">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 90</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>ノマドベース新宿南口</h3>
+                  <span class="rating">★ 4.6 (264)</span>
+                </div>
+                <p class="meta">新宿 ・ 1.6km</p>
+                <p class="desc">作業向け席が豊富で、充電しながら長時間利用しやすい店舗です。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>電源</span>
+                  <span>長時間OK</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥¥¥</span>
+                  <span>7:30 - 23:00</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-6">
+              <div class="thumb thumb-b">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 84</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>ミドリカフェ秋葉原</h3>
+                  <span class="rating">★ 4.1 (176)</span>
+                </div>
+                <p class="meta">秋葉原 ・ 0.8km</p>
+                <p class="desc">駅から近く、短時間の作業にも使いやすいアクセス重視のカフェです。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>駅近</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥¥</span>
+                  <span>10:00 - 21:30</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-7">
+              <div class="thumb thumb-a">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 93</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>ワークカフェ品川</h3>
+                  <span class="rating">★ 4.8 (312)</span>
+                </div>
+                <p class="meta">品川 ・ 2.0km</p>
+                <p class="desc">明るい店内と広いテーブルで、チーム作業から個人学習まで対応可能です。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>電源</span>
+                  <span>静か</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥¥¥</span>
+                  <span>7:00 - 22:30</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-8">
+              <div class="thumb thumb-b">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 79</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>サニーコーヒー中野</h3>
+                  <span class="rating">★ 4.0 (121)</span>
+                </div>
+                <p class="meta">中野 ・ 2.4km</p>
+                <p class="desc">カジュアルな雰囲気で入りやすく、気軽にPC作業できる店舗です。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>禁煙</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥</span>
+                  <span>9:00 - 20:00</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-9">
+              <div class="thumb thumb-a">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 87</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>ブリーズカフェ恵比寿</h3>
+                  <span class="rating">★ 4.4 (209)</span>
+                </div>
+                <p class="meta">恵比寿 ・ 1.9km</p>
+                <p class="desc">窓際席が人気で、明るい時間帯に集中して作業したい人におすすめです。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>電源</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥¥¥</span>
+                  <span>8:00 - 21:30</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-10">
+              <div class="thumb thumb-b">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 86</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>モーニングロースト目黒</h3>
+                  <span class="rating">★ 4.3 (167)</span>
+                </div>
+                <p class="meta">目黒 ・ 2.1km</p>
+                <p class="desc">朝早くから営業しており、通学前の作業時間を確保しやすい店舗です。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>長時間OK</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥¥</span>
+                  <span>6:30 - 19:30</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="cafe-card" data-cafe-id="cafe-11">
+              <div class="thumb thumb-a">
+                <button class="heart" aria-label="お気に入りに追加">♡</button>
+                <span class="score">作業スコア 89</span>
+              </div>
+              <div class="card-body">
+                <div class="title-row">
+                  <h3>クラフトビーンズ吉祥寺</h3>
+                  <span class="rating">★ 4.5 (241)</span>
+                </div>
+                <p class="meta">吉祥寺 ・ 3.2km</p>
+                <p class="desc">席の種類が豊富で、1人作業にも打ち合わせにも使いやすいカフェです。</p>
+                <div class="tags">
+                  <span>Wi-Fi</span>
+                  <span>電源</span>
+                  <span>静か</span>
+                </div>
+                <div class="card-foot">
+                  <span>価格帯: ¥¥¥</span>
+                  <span>8:00 - 22:00</span>
+                </div>
+              </div>
+            </article>
           </div>
+          <nav class="pagination" aria-label="検索結果ページ" hidden></nav>
         </section>
       </section>
     </main>
   </div>
+  <script src="js/main.js"></script>
 </body>
 </html>

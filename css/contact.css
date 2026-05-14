@@ -1,0 +1,135 @@
+:root {
+  --bg: #fcf8f1;
+  --surface: #fffdf9;
+  --line: #f1e4d1;
+  --text: #4f3b2a;
+  --muted: #7f6a54;
+  --accent: #ef8a1f;
+  --accent-deep: #da760c;
+  --shadow: 0 14px 30px rgba(57, 50, 42, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% -10%, #fff6e8 0, transparent 35%),
+    radial-gradient(circle at 90% 0%, #ffeecf 0, transparent 30%),
+    var(--bg);
+}
+
+.contact-wrap {
+  width: min(860px, calc(100% - 40px));
+  margin: 24px auto 42px;
+  display: grid;
+  gap: 16px;
+}
+
+.back-link {
+  width: fit-content;
+  text-decoration: none;
+  color: #cf5f00;
+  font-weight: 700;
+  background: #fff6e9;
+  border: 1px solid #ffd5a5;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+.contact-card {
+  background: linear-gradient(150deg, #fffdf9 0%, #fff7eb 100%);
+  border: 1px solid var(--line);
+  border-left: 7px solid #efb06b;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.section-badge {
+  margin: 0;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #955200;
+  background: #ffe6be;
+}
+
+h1 {
+  margin: 10px 0 6px;
+  font-size: clamp(28px, 5vw, 42px);
+}
+
+.lead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.contact-form {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.contact-form label {
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  border: 1px solid #e7d8c2;
+  border-radius: 12px;
+  padding: 11px 12px;
+  font: inherit;
+  color: var(--text);
+  background: #fffefa;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: 2px solid #ffd09a;
+  border-color: #f1b266;
+}
+
+.form-actions {
+  margin-top: 6px;
+}
+
+.form-actions button {
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 20px;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  box-shadow: 0 10px 18px rgba(218, 118, 12, 0.24);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.form-actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 22px rgba(218, 118, 12, 0.32);
+  filter: saturate(1.08);
+}
+
+@media (max-width: 720px) {
+  .contact-card {
+    padding: 18px;
+  }
+}

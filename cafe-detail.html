@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>カフェ詳細 | カフェナビ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="css/cafe-detail.css" />
+</head>
+<body>
+  <main class="detail-wrap">
+    <a class="back-link" href="index.html">← 検索結果へ戻る</a>
+
+    <section class="detail-card" aria-label="カフェ詳細">
+      <h1 id="cafe-name">カフェ情報</h1>
+      <p id="cafe-rating" class="detail-rating"></p>
+      <p id="cafe-meta" class="detail-meta"></p>
+      <p id="cafe-desc" class="detail-desc"></p>
+      <div id="cafe-tags" class="detail-tags"></div>
+      <div class="detail-foot">
+        <span id="cafe-price"></span>
+        <span id="cafe-hours"></span>
+      </div>
+    </section>
+
+    <section class="map-card" aria-label="地図表示">
+      <h2>地図</h2>
+      <div id="detail-map"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="js/cafe-detail.js"></script>
+</body>
+</html>

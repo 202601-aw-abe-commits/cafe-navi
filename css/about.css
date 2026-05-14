@@ -1,0 +1,209 @@
+:root {
+  --bg: #fbf6ef;
+  --surface: #fffbf6;
+  --line: #f3e7d6;
+  --text: #4f3b2a;
+  --muted: #806f5d;
+  --accent: #ef7f00;
+  --accent-soft: #fff1dc;
+  --chip: #f6e3cc;
+  --shadow: 0 18px 36px rgba(53, 66, 83, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 0% 0%, #fff8ea 0, transparent 32%),
+    radial-gradient(circle at 100% 20%, #fff0d8 0, transparent 35%),
+    var(--bg);
+}
+
+.about-wrap {
+  width: min(1120px, calc(100% - 40px));
+  margin: 24px auto 46px;
+  display: grid;
+  gap: 18px;
+}
+
+.back-link {
+  width: fit-content;
+  text-decoration: none;
+  color: #cf5f00;
+  font-weight: 700;
+  background: #fff6e9;
+  border: 1px solid #ffd5a5;
+  border-radius: 999px;
+  padding: 8px 14px;
+}
+
+.hero-card,
+.section-card,
+.goal-card {
+  background: linear-gradient(160deg, #fffdf9 0%, #fff9f1 100%);
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #fffdf8 0%, #fff4e2 100%);
+  border-left: 6px solid #f5b35b;
+}
+
+.hero-badge {
+  margin: 0;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a5a00;
+  background: #ffe7bf;
+}
+
+h1 {
+  margin: 10px 0 8px;
+  font-size: clamp(30px, 5vw, 52px);
+  line-height: 1.1;
+}
+
+h2 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 3vw, 34px);
+}
+
+h3 {
+  margin: 0;
+  font-size: clamp(20px, 2.2vw, 28px);
+}
+
+h4 {
+  margin: 12px 0 8px;
+  font-size: 19px;
+}
+
+p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.chip-row {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip-row span {
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #5b6074;
+  background: var(--chip);
+  border: 1px solid #eadac3;
+}
+
+.step-grid,
+.user-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.step-grid {
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  column-gap: 14px;
+  row-gap: 0;
+  align-items: stretch;
+}
+
+.step-card,
+.user-card {
+  background: linear-gradient(145deg, #fffdf8 0%, #fff6e9 100%);
+  border: 1px solid #f2e2cc;
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.step-card {
+  height: 100%;
+  border-left: 5px solid #f3be74;
+}
+
+.step-card:nth-child(1) {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+}
+
+.step-card:nth-child(2) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.step-card:nth-child(3) {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.step-no {
+  margin: 0 0 8px;
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff9a1f 0%, #d96a00 100%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+  color: var(--muted);
+}
+
+li {
+  margin: 4px 0;
+  line-height: 1.6;
+}
+
+.goal-card {
+  border-left: 8px solid #eea54a;
+  background: linear-gradient(130deg, #fff8ea 0%, #ffefd5 45%, #fffbf3 100%);
+}
+
+.user-card {
+  border-left: 5px solid #f1c38a;
+}
+
+@media (max-width: 900px) {
+  .step-grid,
+  .user-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card,
+  .section-card,
+  .goal-card {
+    padding: 18px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
