@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新規登録｜カフェナビ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; font-family: "Zen Kaku Gothic New", sans-serif; background: #f5f1e7; color: #1f2f45; }
+    .card { width: min(520px, calc(100% - 32px)); background: #fffdf8; border: 1px solid #efe5d5; border-radius: 24px; padding: 28px; }
+    h1 { margin: 0 0 16px; font-size: clamp(26px, 4vw, 40px); }
+    label { display: block; margin-bottom: 12px; font-weight: 700; }
+    input { width: 100%; border: 1px solid #d8deea; border-radius: 12px; padding: 12px; font: inherit; }
+    button { margin-top: 8px; width: 100%; border: 0; border-radius: 14px; padding: 14px; font: inherit; font-weight: 900; color: #fff; background: linear-gradient(135deg, #ff9800, #ff8500); cursor: pointer; }
+    a { display: inline-block; margin-top: 14px; color: #526178; text-decoration: none; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>新規登録</h1>
+    <form id="signup-form">
+      <label>ユーザー名<input type="text" name="userName" required /></label>
+      <label>メールアドレス<input type="email" name="email" required /></label>
+      <label>パスワード<input type="password" name="password" required /></label>
+      <button type="submit">登録する</button>
+    </form>
+    <p id="signup-message" aria-live="polite"></p>
+    <a href="auth-choice.html">← 選択画面へ戻る</a>
+  </main>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

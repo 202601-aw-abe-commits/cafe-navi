@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ログイン方法を選択｜カフェナビ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f1e7;
+      --surface: #fffdf8;
+      --line: #efe5d5;
+      --text: #1f2f45;
+      --muted: #66748a;
+      --accent: #ff9800;
+      --accent-deep: #ff8500;
+      --radius-xl: 30px;
+      --shadow: 0 14px 32px rgba(41, 60, 80, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Zen Kaku Gothic New", sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(245, 241, 231, 0.78), rgba(245, 241, 231, 0.78)),
+        url("images/ChatGPT Image 2026年5月14日 14_13_51.png") center / cover no-repeat;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .panel {
+      width: min(580px, 100%);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      padding: 36px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+    }
+
+    p {
+      margin: 12px 0 28px;
+      color: var(--muted);
+      font-size: clamp(16px, 2vw, 20px);
+    }
+
+    .actions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .choice-btn {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      border-radius: 18px;
+      font-weight: 800;
+      font-size: clamp(20px, 2.5vw, 28px);
+      padding: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .choice-btn.primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+      box-shadow: 0 10px 20px rgba(255, 145, 0, 0.28);
+    }
+
+    .choice-btn.secondary {
+      color: #3f5067;
+      background: #fff5e6;
+      border: 1px solid #ffd8a0;
+    }
+
+    .choice-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 24px rgba(41, 60, 80, 0.14);
+    }
+
+    .back {
+      margin-top: 16px;
+      display: inline-block;
+      color: #526178;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.2s ease, transform 0.2s ease, text-shadow 0.2s ease;
+    }
+
+    .back:hover {
+      color: #ef5f00;
+      transform: translateX(-4px) scale(1.03);
+      text-shadow: 0 6px 14px rgba(239, 95, 0, 0.28);
+    }
+  </style>
+</head>
+<body>
+  <main class="panel" aria-label="ログイン選択">
+    <h1>ようこそ、カフェナビへ</h1>
+    <p>続行する方法を選択してください</p>
+
+    <div class="actions">
+      <a href="login.html" class="choice-btn primary">ログイン</a>
+      <a href="signup.html" class="choice-btn secondary">新規登録</a>
+    </div>
+
+    <a href="index.html" class="back">← トップへ戻る</a>
+  </main>
+</body>
+</html>

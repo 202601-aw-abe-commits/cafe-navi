@@ -20,7 +20,7 @@ If a request conflicts with this guide, follow the user request and then update 
 - Only if information is missing/ambiguous in `AGENTS.md`, open additional files.
 
 ## Important Project Memo
-- App type: static frontend only (no backend, no build pipeline).
+- App type: static frontend + optional Python API backend (`server.py`) for auth/favorites persistence.
 - Map policy: use Leaflet + OpenStreetMap only.
 - Forbidden for core map feature: Google Maps API, paid/key-based map APIs.
 - Keep design stable; avoid large visual changes unless explicitly requested.
@@ -42,6 +42,7 @@ If a request conflicts with this guide, follow the user request and then update 
 
 ## Project Structure & Module Organization
 - `index.html`: Main list page markup (top nav, filters, cards, pagination container).
+- `login.html` / `signup.html` / `auth-choice.html`: Authentication flow pages.
 - `cafe-detail.html`: Cafe detail page markup.
 - `about.html`: "About Cafe Navi" page markup.
 - `contact.html`: Contact form page markup.
@@ -50,7 +51,10 @@ If a request conflicts with this guide, follow the user request and then update 
 - `css/about.css`: About page styles (cards, badges, section layouts).
 - `css/contact.css`: Contact page styles (form and layout).
 - `js/main.js`: Main list page behavior (favorites, pagination, tab switching, card navigation).
+- `js/auth.js`: Login/signup form API integration.
 - `js/cafe-detail.js`: Detail page behavior (query-id based render, map render).
+- `server.py`: Local API server and SQLite DB bootstrap (`db/cafe_navi.sqlite3`).
+- `db/schema.sql`: MySQL schema reference.
 - `ai-input-proposal-research-persona.md`: Product/context notes (non-runtime document).
 
 Keep concerns separated: HTML for markup only, CSS for presentation, JS for behavior.
@@ -69,7 +73,9 @@ Keep concerns separated: HTML for markup only, CSS for presentation, JS for beha
 - Product notes and planning context: `ai-input-proposal-research-persona.md`
 
 ## Build, Test, and Development Commands
-No build step is required. Run locally with a static server:
+No build step is required.
+
+Frontend only:
 
 - `python3 -m http.server 8000`
   - Serves the project at `http://localhost:8000`.
@@ -77,6 +83,12 @@ No build step is required. Run locally with a static server:
   - Opens the app in a browser.
 
 If Python is unavailable, any static server is acceptable.
+
+Auth/Favorites persistence (recommended):
+
+- `python3 server.py`
+  - Serves app + API at `http://localhost:8000`.
+  - Creates SQLite DB at `db/cafe_navi.sqlite3` automatically.
 
 ## Coding Style & Naming Conventions
 - Use 2-space indentation in HTML, CSS, and JavaScript.

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: cafe-navi-api
+    env: python
+    plan: free
+    buildCommand: "python -m pip install --upgrade pip"
+    startCommand: "python server.py"
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9

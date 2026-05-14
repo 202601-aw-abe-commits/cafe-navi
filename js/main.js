@@ -1,11 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const cards = Array.from(document.querySelectorAll(".cards-grid .cafe-card"));
   const resultCountValue = document.querySelector(".result-count strong");
   const pagination = document.querySelector(".pagination");
   const navViewLinks = Array.from(document.querySelectorAll(".topnav a[data-view]"));
+  const authLink = document.querySelector(".topnav .auth-link");
   const perPage = 10;
   let currentPage = 1;
   let currentView = "all";
+  let isLoggedIn = false;
+  const configuredBase = window.CAFE_NAVI_API_BASE || "";
+  const API_BASE = configuredBase.replace(/\/+$/, "");
+  const apiUrl = (path) => `${API_BASE}${path}`;
+
+  const getToken = () => localStorage.getItem("cafeNaviSessionToken") || "";
+  const clearToken = () => localStorage.removeItem("cafeNaviSessionToken");
+  const apiFetch = (path, options = {}) => {
+    const headers = new Headers(options.headers || {});
+    const token = getToken();
+    if (token) {
+      headers.set("Authorization", `Bearer ${token}`);
+    }
+    return fetch(apiUrl(path), { ...options, headers });
+  };
 
   const getFilteredCards = () => {
     if (currentView === "favorites") {
@@ -74,6 +90,103 @@ document.addEventListener("DOMContentLoaded", () => {
     renderPagination(safePage, totalPages, visibleCount);
   };
 
+  const setHeartState = (heart, isFavorite) => {
+    heart.classList.toggle("is-favorite", isFavorite);
+    heart.textContent = isFavorite ? "♥" : "♡";
+    heart.setAttribute("aria-label", isFavorite ? "お気に入りから削除" : "お気に入りに追加");
+  };
+
+  const syncAuthUi = (userName) => {
+    if (!authLink) {
+      return;
+    }
+    if (userName) {
+      authLink.textContent = `ログアウト (${userName})`;
+      authLink.href = "#";
+      authLink.dataset.mode = "logout";
+    } else {
+      authLink.textContent = "ログイン";
+      authLink.href = "auth-choice.html";
+      authLink.dataset.mode = "login";
+    }
+  };
+
+  const fetchSession = async () => {
+    try {
+      const response = await apiFetch("/api/me");
+      if (!response.ok) {
+        isLoggedIn = false;
+        syncAuthUi();
+        return;
+      }
+      const data = await response.json();
+      isLoggedIn = true;
+      syncAuthUi(data?.user?.userName || "");
+    } catch (_error) {
+      isLoggedIn = false;
+      syncAuthUi();
+    }
+  };
+
+  const fetchFavorites = async () => {
+    cards.forEach((card) => {
+      const heart = card.querySelector(".heart");
+      if (heart) {
+        setHeartState(heart, false);
+      }
+    });
+
+    if (!isLoggedIn) {
+      renderPage(currentPage);
+      return;
+    }
+
+    try {
+      const response = await apiFetch("/api/favorites");
+      if (!response.ok) {
+        return;
+      }
+      const data = await response.json();
+      const favorites = new Set(data.favorites || []);
+      cards.forEach((card) => {
+        const heart = card.querySelector(".heart");
+        if (!heart) {
+          return;
+        }
+        const cafeCode = card.dataset.cafeId || "";
+        setHeartState(heart, favorites.has(cafeCode));
+      });
+      renderPage(currentPage);
+    } catch (_error) {
+      // no-op
+    }
+  };
+
+  if (authLink instanceof HTMLAnchorElement) {
+    authLink.addEventListener("click", async (event) => {
+      if (authLink.dataset.mode !== "logout") {
+        return;
+      }
+      event.preventDefault();
+      try {
+        await apiFetch("/api/logout", { method: "POST" });
+      } catch (_error) {
+        // no-op
+      }
+      clearToken();
+      isLoggedIn = false;
+      syncAuthUi();
+      await fetchFavorites();
+      if (currentView === "favorites") {
+        currentView = "all";
+        navViewLinks.forEach((navLink) => {
+          navLink.classList.toggle("is-active", navLink.dataset.view === "all");
+        });
+      }
+      renderPage(1);
+    });
+  }
+
   if (pagination) {
     pagination.addEventListener("click", (event) => {
       const target = event.target;
@@ -91,6 +204,10 @@ document.addEventListener("DOMContentLoaded", () => {
   navViewLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
+      if (link.dataset.view === "favorites" && !isLoggedIn) {
+        window.location.href = "auth-choice.html";
+        return;
+      }
       currentView = link.dataset.view === "favorites" ? "favorites" : "all";
       navViewLinks.forEach((navLink) => {
         navLink.classList.remove("is-active");
@@ -106,11 +223,38 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    heart.addEventListener("click", (event) => {
+    heart.addEventListener("click", async (event) => {
       event.stopPropagation();
-      const isFavorite = heart.classList.toggle("is-favorite");
-      heart.textContent = isFavorite ? "♥" : "♡";
-      heart.setAttribute("aria-label", isFavorite ? "お気に入りから削除" : "お気に入りに追加");
+
+      if (!isLoggedIn) {
+        window.location.href = "auth-choice.html";
+        return;
+      }
+
+      const cafeCode = card.dataset.cafeId;
+      const cafeName = card.querySelector(".title-row h3")?.textContent?.trim() || cafeCode || "";
+      const area = card.querySelector(".meta")?.textContent?.split("・")?.[0]?.trim() || "";
+      const isFavorite = heart.classList.contains("is-favorite");
+
+      try {
+        if (isFavorite) {
+          const response = await apiFetch(`/api/favorites/${encodeURIComponent(cafeCode || "")}`, { method: "DELETE" });
+          if (response.ok) {
+            setHeartState(heart, false);
+          }
+        } else {
+          const response = await apiFetch("/api/favorites", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cafeCode, cafeName, area })
+          });
+          if (response.ok) {
+            setHeartState(heart, true);
+          }
+        }
+      } catch (_error) {
+        // no-op
+      }
 
       if (currentView === "favorites") {
         renderPage(currentPage);
@@ -132,6 +276,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   renderPage(currentPage);
+  await fetchSession();
+  await fetchFavorites();
 
   const searchField = document.querySelector(".search-input input");
   const locateButton = document.querySelector(".locate-btn");

@@ -19,9 +19,8 @@ body {
   font-family: "Zen Kaku Gothic New", sans-serif;
   color: var(--text);
   background:
-    radial-gradient(circle at 0% 0%, #fff8ea 0, transparent 32%),
-    radial-gradient(circle at 100% 20%, #fff0d8 0, transparent 35%),
-    var(--bg);
+    linear-gradient(rgba(251, 246, 239, 0.76), rgba(251, 246, 239, 0.76)),
+    url("../images/ChatGPT Image 2026年5月14日 14_10_38.png") center / cover fixed no-repeat;
 }
 
 .about-wrap {

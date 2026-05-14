@@ -138,6 +138,17 @@ body {
   background: #fff6e8;
 }
 
+.topnav a.auth-link {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+  box-shadow: 0 10px 20px rgba(255, 145, 0, 0.28);
+}
+
+.topnav a.auth-link:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #ff9b00, #ff7a00);
+}
+
 .main-area {
   padding: 26px 0 48px;
 }
