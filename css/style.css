@@ -20,7 +20,9 @@
 body {
   margin: 0;
   font-family: "Zen Kaku Gothic New", sans-serif;
-  background: radial-gradient(circle at 20% -10%, #fff6df 0%, transparent 40%), var(--bg);
+  background:
+    linear-gradient(rgba(245, 241, 231, 0.74), rgba(245, 241, 231, 0.74)),
+    url("../images/ChatGPT Image 2026年5月14日 14_02_24.png") center / cover fixed no-repeat;
   color: var(--text);
 }
 
@@ -287,6 +289,42 @@ body {
 
 .thumb-b {
   background-image: linear-gradient(rgba(24, 32, 48, 0.35), rgba(24, 32, 48, 0.28)), url("https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80");
+}
+
+.thumb-c {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_37_19.png");
+}
+
+.thumb-d {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_38_39.png");
+}
+
+.thumb-e {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_42_37.png");
+}
+
+.thumb-f {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_44_14.png");
+}
+
+.thumb-g {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_46_06.png");
+}
+
+.thumb-h {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_47_57.png");
+}
+
+.thumb-i {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_49_40.png");
+}
+
+.thumb-j {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_50_52.png");
+}
+
+.thumb-k {
+  background-image: linear-gradient(rgba(24, 32, 48, 0.28), rgba(24, 32, 48, 0.22)), url("../images/ChatGPT Image 2026年5月14日 13_55_25.png");
 }
 
 .heart {
