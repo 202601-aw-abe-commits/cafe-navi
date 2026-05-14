@@ -540,3 +540,169 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 640px) {
+  .container {
+    width: min(1320px, calc(100% - 24px));
+  }
+
+  .topbar-inner {
+    gap: 12px;
+    padding: 12px 0;
+  }
+
+  .brand {
+    gap: 10px;
+  }
+
+  .brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 20px;
+  }
+
+  .brand-copy strong {
+    font-size: 32px;
+    letter-spacing: 0.02em;
+  }
+
+  .brand-copy small {
+    font-size: 13px;
+  }
+
+  .topnav {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .topnav a {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .main-area {
+    padding: 16px 0 28px;
+  }
+
+  .search-wrap {
+    margin-bottom: 16px;
+  }
+
+  .search-box {
+    padding: 12px;
+    border-radius: 18px;
+    gap: 10px;
+  }
+
+  .search-input {
+    min-height: 50px;
+    border-radius: 14px;
+    padding: 0 14px;
+    font-size: 16px;
+  }
+
+  .locate-btn {
+    min-height: 50px;
+    border-radius: 14px;
+    font-size: 16px;
+  }
+
+  .content-wrap {
+    gap: 14px;
+  }
+
+  .filter-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .filter-card h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .filter-group {
+    padding: 12px 0;
+  }
+
+  .filter-group h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .filter-group label {
+    font-size: 14px;
+    margin: 8px 0;
+  }
+
+  .filter-group input {
+    width: 16px;
+    height: 16px;
+  }
+
+  .result-count {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .cards-grid {
+    gap: 12px;
+  }
+
+  .cafe-card:hover {
+    transform: none;
+    box-shadow: var(--shadow);
+  }
+
+  .thumb {
+    height: 110px;
+  }
+
+  .heart {
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .score {
+    font-size: 12px;
+    left: 10px;
+    bottom: 10px;
+    padding: 4px 8px;
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .title-row h3 {
+    font-size: 18px;
+  }
+
+  .rating {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .meta,
+  .desc {
+    font-size: 13px;
+  }
+
+  .tags span {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .card-foot {
+    font-size: 12px;
+  }
+
+  .page-btn {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}

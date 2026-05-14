@@ -15,6 +15,15 @@
     input { width: 100%; border: 1px solid #d8deea; border-radius: 12px; padding: 12px; font: inherit; }
     button { margin-top: 8px; width: 100%; border: 0; border-radius: 14px; padding: 14px; font: inherit; font-weight: 900; color: #fff; background: linear-gradient(135deg, #ff9800, #ff8500); cursor: pointer; }
     a { display: inline-block; margin-top: 14px; color: #526178; text-decoration: none; font-weight: 700; }
+
+    @media (max-width: 480px) {
+      .card { width: calc(100% - 20px); padding: 18px; border-radius: 18px; }
+      h1 { font-size: 28px; margin-bottom: 12px; }
+      label { font-size: 14px; }
+      input { padding: 10px; }
+      button { padding: 12px; }
+      a { font-size: 14px; }
+    }
   </style>
 </head>
 <body>
